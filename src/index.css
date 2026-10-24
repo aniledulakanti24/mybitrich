@@ -1,0 +1,426 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------
+   Design tokens — light, professional fintech palette
+   Navy ink · Royal blue action · Refined gold accent · White canvas
+------------------------------------------------------------------- */
+:root {
+  --ink: #0B1B33;
+  --ink-soft: #334155;
+  --muted: #64748B;
+  --line: #E4E9F1;
+  --canvas: #F7F9FC;
+  --surface: #FFFFFF;
+  --navy: #0F2349;
+  --blue: #1D4ED8;
+  --gold: #C08F1E;
+  --gold-soft: #F8EBC8;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+  body {
+    background-color: var(--surface);
+    color: var(--ink-soft);
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-feature-settings: 'cv11', 'ss01';
+    letter-spacing: -0.006em;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    color: var(--ink);
+    letter-spacing: -0.025em;
+  }
+}
+
+/* Typography roles: labels/figures use Inter with tabular numerals;
+   true code (contract addresses, tx hashes) uses JetBrains Mono via .font-code */
+@layer utilities {
+  .font-mono {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.01em;
+  }
+  .font-code {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    letter-spacing: 0;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--canvas);
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+  border: 2px solid var(--canvas);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* ------------------------------------------------------------------
+   Backgrounds
+------------------------------------------------------------------- */
+.bg-grid-subtle,
+.bg-dot-grid {
+  background-image: radial-gradient(rgba(15, 35, 73, 0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Page canvas + alternating section bands (white cards sit on top of these) */
+.bg-canvas {
+  background-color: #EEF3FA;
+}
+
+.section-hero {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(29, 78, 216, 0.20), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 90% 30%, rgba(212, 167, 58, 0.20), transparent 60%),
+    linear-gradient(180deg, #DDE8F8 0%, #EEF3FB 55%, #F8F4EA 100%);
+}
+
+.section-ice {
+  background:
+    radial-gradient(ellipse 60% 50% at 0% 0%, rgba(29, 78, 216, 0.12), transparent 60%),
+    linear-gradient(180deg, #EBF1FB 0%, #DFE8F6 100%);
+}
+
+.section-cream {
+  background:
+    radial-gradient(ellipse 55% 50% at 100% 0%, rgba(212, 167, 58, 0.18), transparent 60%),
+    linear-gradient(180deg, #FAF5E9 0%, #F2E8D2 100%);
+}
+
+.section-footer {
+  background: linear-gradient(180deg, #DCE5F3 0%, #D2DDEE 100%);
+}
+
+.bg-line-grid {
+  background-image:
+    linear-gradient(to right, rgba(15, 35, 73, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 35, 73, 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.mask-radial-fade {
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 100%);
+}
+
+/* ------------------------------------------------------------------
+   Cards — white surfaces with a cursor-following spotlight
+   (--mx / --my are set by the global pointer tracker in App.tsx)
+------------------------------------------------------------------- */
+.ton-card, .apple-card, .luxe-card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  box-shadow: 0 1px 2px rgba(15, 35, 73, 0.04), 0 8px 24px -12px rgba(15, 35, 73, 0.10);
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
+  isolation: isolate;
+}
+
+.ton-card::before, .apple-card::before, .luxe-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-out);
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(29, 78, 216, 0.07), transparent 45%);
+  z-index: -1;
+}
+
+.ton-card:hover, .apple-card:hover, .luxe-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 1px 2px rgba(15, 35, 73, 0.05), 0 22px 44px -18px rgba(15, 35, 73, 0.20);
+  transform: translateY(-3px);
+}
+
+.ton-card:hover::before, .apple-card:hover::before, .luxe-card:hover::before {
+  opacity: 1;
+}
+
+.ton-glass, .apple-glass, .luxe-glass {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 12px 32px -12px rgba(15, 35, 73, 0.18);
+}
+
+/* Apple-style dark frosted glass for the floating navbar and mobile tab bar */
+.glass-nav {
+  background: linear-gradient(180deg, rgba(30, 41, 70, 0.55) 0%, rgba(12, 20, 42, 0.62) 100%);
+  backdrop-filter: blur(22px) saturate(1.8);
+  -webkit-backdrop-filter: blur(22px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 14px 40px -14px rgba(2, 6, 23, 0.55);
+  transition: background 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+}
+.glass-nav.is-scrolled {
+  background: linear-gradient(180deg, rgba(30, 41, 70, 0.72) 0%, rgba(12, 20, 42, 0.8) 100%);
+}
+
+/* Small dark frosted pill used by the ticker so it matches the navbar */
+.glass-pill {
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(16px) saturate(1.6);
+  -webkit-backdrop-filter: blur(16px) saturate(1.6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 4px 14px -6px rgba(2, 6, 23, 0.4);
+}
+
+.mask-fade-x {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* Animated gradient border beam (21st.dev / magic-ui style) */
+.border-beam {
+  position: relative;
+}
+.border-beam::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--beam-angle, 0deg), transparent 0deg, transparent 280deg, #D4A73A 320deg, #1D4ED8 350deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: beam-spin 6s linear infinite;
+  pointer-events: none;
+}
+
+@property --beam-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes beam-spin {
+  to { --beam-angle: 360deg; }
+}
+
+/* ------------------------------------------------------------------
+   Buttons
+------------------------------------------------------------------- */
+.btn-gold, .btn-ton-primary, .btn-apple-primary {
+  background: linear-gradient(180deg, #17306A 0%, #0F2349 100%);
+  color: #FFFFFF;
+  font-weight: 600;
+  border-radius: 9999px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 6px 18px -6px rgba(15, 35, 73, 0.45);
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), background 0.25s var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Icons/labels inside primary buttons were authored as text-black for the old gold theme */
+.btn-gold .text-black, .btn-gold.text-black,
+.btn-ton-primary .text-black, .btn-apple-primary .text-black {
+  color: #FFFFFF;
+}
+
+.btn-gold::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transform: translateX(-150%) skewX(-20deg);
+  animation: shimmer-slide 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer-slide {
+  0% { transform: translateX(-150%) skewX(-20deg); }
+  55%, 100% { transform: translateX(300%) skewX(-20deg); }
+}
+
+.btn-gold:hover, .btn-ton-primary:hover, .btn-apple-primary:hover {
+  background: linear-gradient(180deg, #1D3B80 0%, #132B5A 100%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.14) inset, 0 12px 28px -8px rgba(15, 35, 73, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-glass, .btn-ton-secondary, .btn-apple-secondary {
+  background: #FFFFFF;
+  color: var(--ink);
+  border: 1px solid #D9E0EA;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 0.25s var(--ease-out);
+  box-shadow: 0 1px 2px rgba(15, 35, 73, 0.06);
+}
+
+.btn-glass:hover, .btn-ton-secondary:hover, .btn-apple-secondary:hover {
+  background: #F7F9FC;
+  border-color: #B8C4D6;
+  color: var(--ink);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -10px rgba(15, 35, 73, 0.25);
+}
+
+/* ------------------------------------------------------------------
+   Gradient text
+------------------------------------------------------------------- */
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 50%, #0EA5E9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(120deg, #A37613 0%, #D4A73A 45%, #A37613 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shine 6s linear infinite;
+}
+
+/* Brighter gold for text sitting on the dark cosmos hero */
+.text-gradient-gold-bright {
+  background: linear-gradient(120deg, #FFF2B8 0%, #F5C042 35%, #D9A21E 65%, #FFE08A 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shine 6s linear infinite;
+}
+
+.text-gradient-navy {
+  background: linear-gradient(180deg, #0B1B33 0%, #2A4170 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes text-shine {
+  to { background-position: 200% center; }
+}
+
+.text-gradient-emerald {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ------------------------------------------------------------------
+   Range slider (Billionaire Calculator)
+------------------------------------------------------------------- */
+input[type=range].gold-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #E2E8F0;
+  border-radius: 9999px;
+  outline: none;
+  transition: all 0.2s;
+}
+
+input[type=range].gold-range:hover {
+  background: #CBD5E1;
+}
+
+input[type=range].gold-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 5px solid #0F2349;
+  box-shadow: 0 2px 8px rgba(15, 35, 73, 0.3);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+input[type=range].gold-range::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+input[type=range].gold-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 5px solid #0F2349;
+  box-shadow: 0 2px 8px rgba(15, 35, 73, 0.3);
+  cursor: pointer;
+}
+
+/* ------------------------------------------------------------------
+   Corner brackets (decorative frames around 3D canvases)
+------------------------------------------------------------------- */
+.hud-corner-tl, .hud-corner-tr, .hud-corner-bl, .hud-corner-br {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  border-color: rgba(15, 35, 73, 0.22);
+}
+.hud-corner-tl { top: 8px; left: 8px; border-top: 1.5px solid; border-left: 1.5px solid; }
+.hud-corner-tr { top: 8px; right: 8px; border-top: 1.5px solid; border-right: 1.5px solid; }
+.hud-corner-bl { bottom: 8px; left: 8px; border-bottom: 1.5px solid; border-left: 1.5px solid; }
+.hud-corner-br { bottom: 8px; right: 8px; border-bottom: 1.5px solid; border-right: 1.5px solid; }
+
+/* 3D WebGL stages: soft navy-tinted panel so additive glows stay visible on a light page */
+.stage-3d {
+  background:
+    radial-gradient(ellipse at 50% 45%, rgba(29, 78, 216, 0.10), transparent 60%),
+    linear-gradient(180deg, #EEF3FA 0%, #E6EDF7 100%);
+  border: 1px solid var(--line);
+  border-radius: 1.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
