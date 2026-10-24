@@ -6,7 +6,7 @@ import path from 'path';
 export default defineConfig({
   // GitHub Pages serves the site from /mybitrich/; the deploy workflow sets BASE_PATH.
   // Everywhere else (local dev, Vercel, Netlify) the site lives at the root.
-  base: process.env.BASE_PATH || '/',
+  base: process.env.BASE_PATH || (process.env.NODE_ENV === 'production' ? '/mybitrich/' : '/'),
   plugins: [react()],
   resolve: {
     alias: {

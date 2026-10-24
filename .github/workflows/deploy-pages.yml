@@ -30,10 +30,13 @@ jobs:
       - name: Build
         run: npx vite build
         env:
-          BASE_PATH: /${{ github.event.repository.name }}/
+          BASE_PATH: /${{ github.event.repository.name || 'mybitrich' }}/
 
       # hash-based routing works on Pages, but serve index.html for unknown paths too
-      - run: cp dist/index.html dist/404.html
+      - name: Prepare Pages Artifacts
+        run: |
+          cp dist/index.html dist/404.html
+          touch dist/.nojekyll
 
       - uses: actions/upload-pages-artifact@v3
         with:
