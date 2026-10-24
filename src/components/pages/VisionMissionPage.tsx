@@ -46,102 +46,11 @@ const PILLAR_TABS: { id: VisionTab; numeral: string; label: string; icon: React.
   { id: 'sovereign', numeral: 'IV', label: 'Layer-1 & RWA', icon: Globe },
 ];
 
-interface ValuationScenario {
-  id: string;
-  phase: string;
-  year: string;
-  price: string;
-  rawPrice: number;
-  marketCap: string;
-  status: string;
-  headline: string;
-  description: string;
-  scarcityRatio: string;
-  catalysts: string[];
-}
-
-const VALUATION_SCENARIOS: ValuationScenario[] = [
-  {
-    id: 'launch',
-    phase: 'Phase 1',
-    year: '2025 – 2026',
-    price: '$0.00248',
-    rawPrice: 0.00248,
-    marketCap: 'Current price · trading is live',
-    status: 'In progress',
-    headline: 'Token Launch & Liquidity Foundation',
-    description: 'MBR launches on BNB Smart Chain with a 6% buy / 6% sell tax and a 3-tier buy referral, and 100% of the initial liquidity is locked for 5 years.',
-    scarcityRatio: '150M total supply',
-    catalysts: [
-      'Deploy smart contract with 6% buy/sell tax and 3-tier buy referral module.',
-      'Execute 5-year liquidity lock (100% initial LP locked until 2030–2031).',
-      'Launch web dApp and complete third-party smart contract audits.',
-      'Submit CoinGecko / CoinMarketCap listings.',
-      'Grow community through referral competitions and X/Telegram marketing.',
-    ],
-  },
-  {
-    id: 'cex',
-    phase: 'Phase 2',
-    year: '2027 – 2028',
-    price: 'Utility',
-    rawPrice: 0,
-    marketCap: 'Staking ecosystem',
-    status: 'Upcoming',
-    headline: 'Utility Integration & Staking Ecosystem',
-    description: 'Native staking, zero-tax P2P trading and cross-chain bridges add everyday utility, while transaction taxes are lowered as organic volume grows.',
-    scarcityRatio: 'Staking & bridges',
-    catalysts: [
-      'Launch native dApp staking with boosted yield pools.',
-      'Integrate zero-tax P2P trading and automated reward analytics.',
-      'Add cross-chain bridge support across major EVM chains and Solana.',
-      'Gradually lower transaction taxes as organic volume grows.',
-    ],
-  },
-  {
-    id: 'layer1',
-    phase: 'Phase 3',
-    year: '2029 – 2031',
-    price: 'Expansion',
-    rawPrice: 0,
-    marketCap: 'DeFi, RWA & DAO',
-    status: 'Planned',
-    headline: 'Ecosystem Expansion & RWA Integration',
-    description: 'DeFi lending and borrowing, payment-processor partnerships for e-commerce, longer liquidity locks and a move to fully decentralized DAO governance.',
-    scarcityRatio: 'DeFi & payments',
-    catalysts: [
-      'Review and extend 5-year liquidity locks for additional multi-year terms.',
-      'Introduce DeFi lending and borrowing utility.',
-      'Partner with payment processors for global e-commerce token payments.',
-      'Transition governance to a fully decentralized DAO.',
-    ],
-  },
-  {
-    id: 'horizon',
-    phase: 'Phase 4',
-    year: '2032 – 2035',
-    price: '$2,000.00',
-    rawPrice: 2000,
-    marketCap: '$300B market cap target',
-    status: 'Target 2035',
-    headline: 'Sovereign Blockchain & Ecosystem Maturity',
-    description: 'MBR migrates from a token to a native coin on its own high-speed Layer-1 / Layer-2, targets Tier-1 exchange listings, and works toward the long-term goal of $2,000 per token.',
-    scarcityRatio: '$300B implied cap',
-    catalysts: [
-      'Migration from token to native coin on a proprietary high-speed Layer-1 / Layer-2.',
-      'Target Tier-1 CEX listings (Binance, Coinbase, OKX).',
-      'Expand institutional liquidity and enterprise adoption.',
-      'Long-term valuation growth toward $2,000 USD per token ($300B market cap).',
-    ],
-  },
-];
-
 export const VisionMissionPage: React.FC<VisionMissionPageProps> = ({
   onOpenSwapModal,
   onOpenConnectModal,
 }) => {
   const [activeTab, setActiveTab] = useState<VisionTab>('scarcity');
-  const [selectedScenario, setSelectedScenario] = useState<ValuationScenario>(VALUATION_SCENARIOS[3]);
 
   return (
     <div className="pt-32 pb-12 sm:pt-40 sm:pb-20 relative overflow-hidden section-hero text-slate-800">
@@ -601,129 +510,21 @@ export const VisionMissionPage: React.FC<VisionMissionPageProps> = ({
 
         </motion.div>
 
-        {/* ========================================================================= */}
-        {/* 3. INTERACTIVE 2025 – 2035 VALUATION SCENARIO TERMINAL */}
-        {/* ========================================================================= */}
-        <motion.div {...sectionAnimation} className="space-y-8">
-          
-          <div className="text-center max-w-3xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-50 border border-gold-300/50 text-xs font-mono text-gold-600 uppercase tracking-widest font-semibold">
-              <Award className="w-3.5 h-3.5 text-gold-600" />
-              THE ROAD TO $2,000 / MBR
-            </div>
-            <h2 className="text-3xl sm:text-5xl font-black font-display text-slate-900 tracking-tight">
-              Explore the four phases (2025 – 2035)
-            </h2>
-            <p className="text-sm sm:text-base text-slate-600">
-              Select a phase to see its goals and key milestones from the official roadmap.
-            </p>
+        {/* 3. Roadmap pointer — the full four-phase plan lives on the Roadmap page */}
+        <motion.a
+          {...sectionAnimation}
+          href="#/roadmap"
+          className="luxe-card group flex flex-col items-start justify-between gap-6 p-8 sm:flex-row sm:items-center sm:p-10"
+        >
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-gold-600">The road to $2,000 · 2025 – 2035</div>
+            <h2 className="mt-2 font-display text-2xl font-extrabold text-slate-900 sm:text-3xl">Four phases, from launch to a native Layer-1</h2>
+            <p className="mt-2 max-w-2xl text-sm text-slate-600">Token launch and LP lock, staking and utility, DeFi and RWA expansion, then the move to a native coin on its own chain.</p>
           </div>
-
-          {/* 4 Interactive Phase Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {VALUATION_SCENARIOS.map((sc) => {
-              const isSelected = selectedScenario.id === sc.id;
-              return (
-                <button
-                  key={sc.id}
-                  onClick={() => setSelectedScenario(sc)}
-                  className={`p-6 rounded-3xl text-left border transition-all duration-300 flex flex-col justify-between space-y-4 ${
-                    isSelected
-                      ? 'bg-gradient-to-b from-white to-gold-50 border-gold-400 shadow-sm scale-[1.02]'
-                      : 'bg-white border-slate-200 hover:border-slate-300'
-                  }`}
-                >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold">
-                        {sc.year}
-                      </span>
-                      <span className={`text-[9px] font-mono px-2 py-0.5 rounded-full font-bold uppercase ${
-                        sc.id === 'launch'
-                          ? 'bg-emerald-500/15 text-emerald-600 border border-emerald-500/30'
-                          : sc.id === 'horizon'
-                          ? 'bg-gold-100 text-gold-600 border border-gold-400/60'
-                          : 'bg-slate-50 text-slate-600 border border-slate-200'
-                      }`}>
-                        {sc.status}
-                      </span>
-                    </div>
-
-                    <div className="text-2xl sm:text-3xl font-extrabold font-mono text-slate-900">
-                      {sc.price}
-                    </div>
-
-                    <div className="text-xs font-mono text-gold-600 font-semibold">
-                      {sc.marketCap}
-                    </div>
-                  </div>
-
-                  <div className="pt-3 border-t border-slate-200 flex items-center justify-between text-xs font-mono">
-                    <span className={isSelected ? 'text-gold-600 font-bold' : 'text-slate-500'}>
-                      {isSelected ? '✓ Selected Milestone' : 'Inspect Details'}
-                    </span>
-                    <ChevronRight className={`w-3.5 h-3.5 ${isSelected ? 'text-gold-600' : 'text-slate-500'}`} />
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Deep-Dive Podium for the Selected Milestone */}
-          <div className="luxe-card p-8 sm:p-10 rounded-3xl border border-gold-300/50 bg-gradient-to-r from-white via-slate-50 to-slate-50 shadow-sm space-y-6">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-slate-200">
-              <div>
-                <div className="text-xs font-mono text-gold-600 uppercase tracking-widest font-bold">
-                  {selectedScenario.phase} · {selectedScenario.year}
-                </div>
-                <h3 className="text-2xl sm:text-3xl font-extrabold font-display text-slate-900 mt-1">
-                  {selectedScenario.headline}
-                </h3>
-              </div>
-
-              <div className="text-left md:text-right shrink-0 bg-white px-6 py-3 rounded-2xl border border-gold-300/50">
-                <div className="text-2xl sm:text-3xl font-mono font-extrabold text-gold-600">
-                  {selectedScenario.price}
-                </div>
-                <div className="text-[11px] font-mono text-slate-500">
-                  {selectedScenario.marketCap}
-                </div>
-              </div>
-            </div>
-
-            <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-              {selectedScenario.description}
-            </p>
-
-            <div className="space-y-3 pt-2">
-              <div className="text-xs font-mono uppercase tracking-wider text-gold-600 font-bold">
-                Key milestones
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {selectedScenario.catalysts.map((cat, idx) => (
-                  <div key={idx} className="p-3.5 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-2.5 text-xs text-slate-600">
-                    <CheckCircle2 className="w-4 h-4 text-gold-600 shrink-0 mt-0.5" />
-                    <span>{cat}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
-              <div className="text-xs font-mono text-slate-500">
-                Mathematical Assumption: <span className="text-gold-600 font-semibold">150,000,000 Fixed Token Cap</span>
-              </div>
-              <button
-                onClick={onOpenSwapModal}
-                className="btn-gold px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-black shadow-md shadow-slate-900/10"
-              >
-                Acquire Tokens at Launch Valuation
-              </button>
-            </div>
-          </div>
-
-        </motion.div>
-
+          <span className="btn-gold inline-flex shrink-0 items-center gap-2 px-6 py-3 text-sm">
+            View the roadmap <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </span>
+        </motion.a>
         {/* ========================================================================= */}
         {/* 4. FOUNDATIONAL PROTOCOL MOTTO & BILLIONAIRE PLEDGE */}
         {/* ========================================================================= */}

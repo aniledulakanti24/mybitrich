@@ -14,9 +14,10 @@ export const DOCUMENTATION_NOTICE = 'Non-custodial protocol on BNB Smart Chain. 
 export const RISK_NOTICE =
   'Cryptocurrency prices are volatile and you could lose some or all of the money you put in. Do your own research (DYOR) before buying or selling.';
 
-export type DisclaimerTopic = 'target' | 'projection' | 'rewards' | 'comparison' | 'trade' | 'market' | 'roadmap';
+export type DisclaimerTopic = 'overview' | 'target' | 'projection' | 'rewards' | 'comparison' | 'trade' | 'market' | 'roadmap';
 
 const TOPIC_NOTES: Record<DisclaimerTopic, string> = {
+  overview: 'Market figures are indicative and may be delayed. 2035 price and market-cap figures are long-term goals, not forecasts.',
   target: 'Prices and market-cap figures for 2035 are long-term goals, not forecasts.',
   projection:
     'Results are hypothetical illustrations based on the values you enter and the 2035 target. They are not predictions of future returns.',

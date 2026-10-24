@@ -257,7 +257,7 @@ export const ProtocolParameters: React.FC = () => (
         })}
       </div>
 
-      <Disclaimer topic="target" compact className="mt-8" />
+      <Disclaimer topic="overview" compact className="mt-8" />
     </div>
   </section>
 );

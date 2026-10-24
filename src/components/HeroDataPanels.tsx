@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUp, Users, PieChart, Lock, Target } from 'lucide-react';
-import { TOKEN_INFO, TAX_MECHANICS, REFERRAL_TIERS } from '../data/tokenData';
+import { TrendingUp, Users } from 'lucide-react';
+import { TOKEN_INFO, REFERRAL_TIERS } from '../data/tokenData';
 import { NumberTicker } from './ui/motion-primitives';
 
 /**
@@ -24,17 +24,6 @@ const sparkPath = (() => {
     return `${i === 0 ? 'M' : 'L'}${x.toFixed(1)} ${y.toFixed(1)}`;
   }).join(' ');
 })();
-
-const TAX_BARS = [
-  { label: 'Holders reflection', color: 'bg-amber-300', dot: 'bg-amber-300' },
-  { label: 'Auto-liquidity', color: 'bg-emerald-400', dot: 'bg-emerald-400' },
-  { label: 'Marketing & treasury', color: 'bg-sky-400', dot: 'bg-sky-400' },
-];
-
-const LOCK_START = 2025;
-const LOCK_END = 2030.5; // official: locked until 2030–31
-const LOCK_END_LABEL = '2030–31';
-const lockProgress = Math.min(1, Math.max(0.04, (new Date().getFullYear() + new Date().getMonth() / 12 - LOCK_START) / (LOCK_END - LOCK_START)));
 
 const Card: React.FC<{
   children: React.ReactNode;
@@ -149,83 +138,17 @@ const HoldersCard: React.FC = () => (
   </>
 );
 
-const TaxCard: React.FC = () => (
-  <>
-    <div className="flex items-center justify-between">
-      <Label icon={PieChart}>Transaction engine</Label>
-      <span className="font-display text-lg font-bold text-white">6%</span>
-    </div>
-    <div className="mt-3 flex h-2 overflow-hidden rounded-full bg-white/[0.06]">
-      {TAX_BARS.map((b, i) => (
-        <motion.div
-          key={b.label}
-          className={`h-full ${b.color} ${i > 0 ? 'ml-0.5' : ''}`}
-          initial={{ width: 0 }}
-          animate={{ width: '33%' }}
-          transition={{ delay: 1.1 + i * 0.2, duration: 0.8, ease: EASE }}
-        />
-      ))}
-    </div>
-    <div className="mt-3 space-y-1.5">
-      {TAX_MECHANICS.map((t, i) => (
-        <div key={t.component} className="flex items-center justify-between text-xs">
-          <span className="flex items-center gap-2 text-slate-300">
-            <span className={`h-1.5 w-1.5 rounded-full ${TAX_BARS[i].dot}`} />
-            {TAX_BARS[i].label}
-          </span>
-          <span className="font-semibold text-white">2%</span>
-        </div>
-      ))}
-    </div>
-  </>
-);
-
-const LockCard: React.FC = () => (
-  <>
-    <Label icon={Lock} tone="text-emerald-400">Liquidity lock</Label>
-    <div className="mt-3 flex items-baseline justify-between">
-      <div className="font-display text-2xl font-bold text-white">{TOKEN_INFO.liquidityLockedYears} Years</div>
-      <div className="text-xs text-slate-400">until {LOCK_END_LABEL}</div>
-    </div>
-    <div className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-white/[0.06]">
-      <motion.div
-        className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-emerald-300"
-        initial={{ width: 0 }}
-        animate={{ width: `${lockProgress * 100}%` }}
-        transition={{ delay: 1.3, duration: 1.2, ease: EASE }}
-      />
-    </div>
-    <div className="mt-1.5 flex justify-between text-[10px] text-slate-500">
-      <span>{LOCK_START}</span>
-      <span>{TOKEN_INFO.lpLockLockers.join(' · ')}</span>
-      <span>{LOCK_END_LABEL}</span>
-    </div>
-    <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3">
-      <span className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-slate-500">
-        <Target className="h-3 w-3 text-amber-300" /> {TOKEN_INFO.targetYear} target
-      </span>
-      <span className="text-sm font-semibold text-amber-200">${TOKEN_INFO.targetPriceUsd.toLocaleString()}</span>
-    </div>
-  </>
-);
-
 /** Absolutely positioned side columns — render inside a `relative` stage. */
 export const HeroDataPanels: React.FC = () => (
   <div className="pointer-events-none absolute inset-0 z-20 mx-auto hidden max-w-[1320px] items-center justify-between px-4 lg:flex xl:px-8">
-    <div className="pointer-events-auto flex flex-col gap-6">
+    <div className="pointer-events-auto">
       <Card side="left" delay={0.9} floatDelay={0}>
         <MarketCard />
       </Card>
-      <Card side="left" delay={1.05} floatDelay={1.4} className="lg:ml-6 xl:ml-10">
-        <HoldersCard />
-      </Card>
     </div>
-    <div className="pointer-events-auto flex flex-col gap-6">
-      <Card side="right" delay={1} floatDelay={0.7}>
-        <TaxCard />
-      </Card>
-      <Card side="right" delay={1.15} floatDelay={2.1} className="lg:-ml-6 xl:-ml-10">
-        <LockCard />
+    <div className="pointer-events-auto">
+      <Card side="right" delay={1.05} floatDelay={1.4}>
+        <HoldersCard />
       </Card>
     </div>
   </div>
@@ -236,8 +159,6 @@ export const HeroDataGrid: React.FC = () => {
   const items = [
     { label: 'Price', value: TOKEN_INFO.currentPrice, note: '+18.4% · 24h', tone: 'text-emerald-400' },
     { label: 'Holders', value: TOKEN_INFO.holders, note: '3-tier referrals', tone: 'text-sky-300' },
-    { label: 'Transaction tax', value: '6%', note: '2% · 2% · 2% split', tone: 'text-amber-300' },
-    { label: 'LP lock', value: `${TOKEN_INFO.liquidityLockedYears} Years`, note: `Until ${LOCK_END_LABEL}`, tone: 'text-emerald-400' },
   ];
   return (
     <div className="relative z-20 mx-auto grid max-w-xl grid-cols-2 gap-3 px-4 pb-12 lg:hidden">

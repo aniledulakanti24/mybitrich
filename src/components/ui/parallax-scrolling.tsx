@@ -156,18 +156,6 @@ export function ParallaxComponent({
               {subtitle}
             </motion.p>
 
-            <motion.div {...heroRise(0.5)} className="mt-6 flex flex-wrap items-center justify-center gap-2.5 text-xs">
-              <span className="px-3.5 py-1.5 rounded-full bg-[#0B1530]/70 border border-amber-300/40 text-amber-200 font-semibold backdrop-blur-md">
-                150,000,000 Fixed Capped Supply
-              </span>
-              <span className="px-3.5 py-1.5 rounded-full bg-[#0B1530]/70 border border-emerald-400/40 text-emerald-300 font-semibold backdrop-blur-md">
-                2% Auto Reflection Yield
-              </span>
-              <span className="px-3.5 py-1.5 rounded-full bg-[#0B1530]/70 border border-sky-400/40 text-sky-300 font-semibold backdrop-blur-md">
-                5-Year LP Lock
-              </span>
-            </motion.div>
-
             <motion.div {...heroRise(0.65)} className="mt-8 flex flex-wrap items-center justify-center gap-3 pointer-events-auto">
               <a
                 href={TOKEN_INFO.pancakeSwapUrl}
@@ -205,95 +193,13 @@ export function ParallaxComponent({
             <HeroDataPanels />
           </div>
           <HeroDataGrid />
-          <div className="relative z-20 mx-auto max-w-3xl px-4 pb-12">
-            <Disclaimer topic="market" tone="dark" compact />
-          </div>
+          <div className="hidden h-12 lg:block" />
         </div>
 
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 h-20 bg-gradient-to-b from-transparent to-[#030610]/80" />
       </section>
 
       <ProtocolParameters />
-
-      {/* ========================================================
-          PARALLAX CONTENT SECTION: INSTITUTIONAL QUANTITATIVE PROOF
-         ======================================================== */}
-      <section className="parallax__content relative z-30 py-20 section-ice border-t border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
-          
-          <div className="space-y-3 max-w-3xl mx-auto">
-            <span className="text-xs font-mono font-bold uppercase tracking-widest text-gold-600 flex items-center justify-center gap-2">
-              <TrendingUp className="w-4 h-4 text-gold-600" />
-              THE MATHEMATICAL PATH TO GENERATIONAL WEALTH
-            </span>
-            <h3 className="text-3xl sm:text-5xl font-black font-display text-slate-900">
-              Why <span className="text-gradient-gold">150M Capped Supply</span> Changes Everything
-            </h3>
-            <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-              Most meme cryptocurrencies mint 100 Trillion to 1 Quadrillion tokens, making meaningful wealth mathematically impossible for late adopters. MyBitRich has a fixed total supply of 150 million MBR (15 Cr), a 2% holder reward on every taxed buy and sell, and 100% of its initial liquidity locked for 5 years.
-            </p>
-          </div>
-
-          {/* 3 Core Value Pillars */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-            
-            <div className="luxe-card p-6 sm:p-7 rounded-3xl border border-slate-200 hover:border-gold-400/60 transition-all">
-              <div className="w-12 h-12 rounded-2xl bg-gold-50 border border-gold-300/50 flex items-center justify-center text-gold-600 mb-4 shadow-md">
-                <Coins className="w-6 h-6" />
-              </div>
-              <span className="text-[10px] font-mono text-gold-600 font-bold uppercase tracking-wider">Scarcity Engine</span>
-              <h4 className="text-xl font-bold font-display text-slate-900 mt-1 mb-2">150,000,000 Hard Cap</h4>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Total supply is fixed at 150,000,000 MBR. With a capped supply, growing demand is designed to support the long-term target of $2,000 per token.
-              </p>
-            </div>
-
-            <div className="luxe-card p-6 sm:p-7 rounded-3xl border border-slate-200 hover:border-emerald-400/40 transition-all">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-600 mb-4 shadow-md">
-                <Sparkles className="w-6 h-6" />
-              </div>
-              <span className="text-[10px] font-mono text-emerald-600 font-bold uppercase tracking-wider">Frictionless Yield</span>
-              <h4 className="text-xl font-bold font-display text-slate-900 mt-1 mb-2">2% On-Chain Reflections</h4>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Holders earn MBR automatically on every trade without staking, locking, or paying gas fees. Your wallet balance increases with every DEX transaction volume wave.
-              </p>
-            </div>
-
-            <div className="luxe-card p-6 sm:p-7 rounded-3xl border border-slate-200 hover:border-blue-400/40 transition-all">
-              <div className="w-12 h-12 rounded-2xl bg-[#0071E3]/15 border border-[#0071E3]/35 flex items-center justify-center text-blue-600 mb-4 shadow-md">
-                <Lock className="w-6 h-6" />
-              </div>
-              <span className="text-[10px] font-mono text-blue-600 font-bold uppercase tracking-wider">Citadel Security</span>
-              <h4 className="text-xl font-bold font-display text-slate-900 mt-1 mb-2">5-Year Locked Liquidity</h4>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Initial liquidity is locked for 5 years in smart-contract lockers (Unicrypt / PinkLock / Streamflow) until 2030–31, for rug-pull protection and long-term price stability.
-              </p>
-            </div>
-
-          </div>
-
-          {/* Action CTAs */}
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
-            <a
-              href={TOKEN_INFO.pancakeSwapUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-gold px-8 py-3.5 text-xs uppercase tracking-wider font-extrabold text-black flex items-center gap-2 shadow-lg shadow-slate-900/10"
-            >
-              <span>Acquire MBR on PancakeSwap</span>
-              <ArrowRight className="w-4 h-4 text-black" />
-            </a>
-
-            <a
-              href="#calculator"
-              className="btn-glass px-7 py-3.5 text-xs font-semibold text-slate-900 hover:text-gold-600"
-            >
-              <span>Launch Billionaire ROI Simulator</span>
-            </a>
-          </div>
-
-        </div>
-      </section>
 
     </div>
   );
