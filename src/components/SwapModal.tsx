@@ -49,7 +49,7 @@ export const SwapModal: React.FC<SwapModalProps> = ({
         <div className="flex items-center justify-between pb-4 border-b border-slate-200">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl overflow-hidden bg-slate-50 border border-gold-300/50 flex items-center justify-center p-1 shadow-sm">
-              <img src="/assets/logo.png" alt="MBR" className="w-full h-full object-contain" />
+              <img src={`${import.meta.env.BASE_URL}assets/logo.png`} alt="MBR" className="w-full h-full object-contain" />
             </div>
             <div>
               <h3 className="text-lg font-bold font-display text-slate-900">

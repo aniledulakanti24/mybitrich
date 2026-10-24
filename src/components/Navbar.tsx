@@ -104,7 +104,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button onClick={() => onNavigatePage('home')} className="group flex items-center gap-2.5 text-left" title="Home">
             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-amber-200 via-amber-400 to-amber-700 p-[2px] transition-transform group-hover:scale-105">
               <div className="flex h-full w-full items-center justify-center rounded-full bg-white p-1">
-                <img src="/assets/logo.png" alt="MyBitRich" className="h-full w-full object-contain" />
+                <img src={`${import.meta.env.BASE_URL}assets/logo.png`} alt="MyBitRich" className="h-full w-full object-contain" />
               </div>
             </div>
             <span className={`font-display text-base font-bold tracking-tight sm:text-lg ${onDark ? 'text-white' : 'text-slate-900'}`}>

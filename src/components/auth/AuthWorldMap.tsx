@@ -78,7 +78,7 @@ export const AuthWorldMap: React.FC<{ className?: string }> = ({ className = '' 
     };
 
     const img = new Image();
-    img.src = '/assets/world-map.png'; // land is pure black on a grey ocean
+    img.src = `${import.meta.env.BASE_URL}assets/world-map.png`; // land is pure black on a grey ocean
     img.onload = () => {
       const off = document.createElement('canvas');
       off.width = MW;

@@ -171,9 +171,9 @@ export const ParallaxGlobe: React.FC<{ className?: string }> = ({ className = ''
 
     // Earth — unit sphere, scaled by the pivot
     const loader = new THREE.TextureLoader();
-    const day = loader.load('/assets/earth-day.jpg');
+    const day = loader.load(`${import.meta.env.BASE_URL}assets/earth-day.jpg`);
     day.colorSpace = THREE.SRGBColorSpace;
-    const lights = loader.load('/assets/earth-lights.png');
+    const lights = loader.load(`${import.meta.env.BASE_URL}assets/earth-lights.png`);
     lights.colorSpace = THREE.SRGBColorSpace;
     const earth = new THREE.Mesh(
       new THREE.SphereGeometry(1, 128, 128),

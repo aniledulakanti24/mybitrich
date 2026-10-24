@@ -72,7 +72,7 @@ export const Tokenomics3DFlywheel: React.FC<{ className?: string }> = ({ classNa
 
     // 2. Texture Loader for Official Minted MBR Coin
     const textureLoader = new THREE.TextureLoader();
-    const logoTexture = textureLoader.load('/assets/logo.png');
+    const logoTexture = textureLoader.load(`${import.meta.env.BASE_URL}assets/logo.png`);
     logoTexture.colorSpace = THREE.SRGBColorSpace;
 
     // Physical Gold Coin Materials

@@ -42,7 +42,7 @@ export const HeroCoin: React.FC<{ className?: string }> = ({ className = '' }) =
         />
         {/* face */}
         <div className="absolute inset-[4px] overflow-hidden rounded-full bg-white p-2.5 shadow-[inset_0_2px_6px_rgba(0,0,0,0.15)]">
-          <img src="/assets/logo.png" alt="MyBitRich Gold Coin" className="h-full w-full object-contain" />
+          <img src={`${import.meta.env.BASE_URL}assets/logo.png`} alt="MyBitRich Gold Coin" className="h-full w-full object-contain" />
           {/* light sweep */}
           <motion.span
             className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 bg-gradient-to-r from-transparent via-white/80 to-transparent"

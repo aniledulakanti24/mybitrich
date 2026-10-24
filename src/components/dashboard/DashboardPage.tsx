@@ -115,7 +115,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
               title="Return to Public Website"
             >
               <div className="w-9 h-9 rounded-xl overflow-hidden bg-slate-50 border border-gold-300/50 flex items-center justify-center p-1.5 group-hover:border-amber-400 transition-colors shadow-sm">
-                <img src="/assets/logo.png" alt="MBR" className="w-full h-full object-contain" />
+                <img src={`${import.meta.env.BASE_URL}assets/logo.png`} alt="MBR" className="w-full h-full object-contain" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
