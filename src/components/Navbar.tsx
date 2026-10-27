@@ -101,19 +101,19 @@ export const Navbar: React.FC<NavbarProps> = ({
           }`}
         >
           {/* Brand */}
-          <button onClick={() => onNavigatePage('home')} className="group flex items-center gap-2.5 text-left" title="Home">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-amber-200 via-amber-400 to-amber-700 p-[2px] transition-transform group-hover:scale-105">
-              <div className="flex h-full w-full items-center justify-center rounded-full bg-white p-1">
+          <button onClick={() => onNavigatePage('home')} className="group flex items-center gap-3 text-left" title="Home">
+            <div className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-gradient-to-br from-amber-200 via-amber-400 to-amber-700 p-[2px] shadow-sm transition-transform group-hover:scale-105">
+              <div className="flex h-full w-full items-center justify-center rounded-full bg-white p-0.5">
                 <img src={`${import.meta.env.BASE_URL}assets/logo.png`} alt="MyBitRich" className="h-full w-full object-contain" />
               </div>
             </div>
-            <span className={`font-display text-base font-bold tracking-tight sm:text-lg ${onDark ? 'text-white' : 'text-slate-900'}`}>
+            <span className={`font-display text-lg font-bold tracking-tight sm:text-xl md:text-2xl ${onDark ? 'text-white' : 'text-slate-900'}`}>
               My<span className={onDark ? 'text-gradient-gold-bright' : 'text-gradient-gold'}>BitRich</span>
             </span>
           </button>
 
           {/* Links (tablet / desktop) */}
-          <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-1.5 md:flex" aria-label="Primary">
             {NAV_ITEMS.map((item) => {
               const active = currentPage === item.id;
               return (
@@ -121,13 +121,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                   key={item.id}
                   onClick={() => onNavigatePage(item.id)}
                   aria-current={active ? 'page' : undefined}
-                  className={`relative px-3.5 py-2 text-sm font-medium transition-colors ${active ? activeText : text}`}
+                  className={`relative px-4 py-2 text-base font-semibold transition-colors ${active ? activeText : text}`}
                 >
                   {item.label}
                   {active && (
                     <motion.span
                       layoutId="nav-underline"
-                      className="absolute inset-x-3.5 -bottom-0.5 h-[2px] rounded-full bg-gradient-to-r from-amber-300 to-amber-500"
+                      className="absolute inset-x-4 -bottom-0.5 h-[2.5px] rounded-full bg-gradient-to-r from-amber-300 to-amber-500"
                       transition={{ type: 'spring', stiffness: 420, damping: 34 }}
                     />
                   )}
@@ -137,17 +137,17 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Account */}
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             {isAuthenticated ? (
               <>
                 <button
                   onClick={onOpenDashboard}
-                  className="rounded-full bg-gradient-to-b from-amber-300 to-amber-500 px-4 py-2 text-xs font-semibold text-[#1F1503] shadow-[0_6px_20px_-8px_rgba(245,192,66,0.7)] transition-transform hover:-translate-y-0.5 active:scale-95"
+                  className="rounded-full bg-gradient-to-b from-amber-300 to-amber-500 px-5 py-2.5 text-sm font-semibold text-[#1F1503] shadow-[0_6px_20px_-8px_rgba(245,192,66,0.7)] transition-transform hover:-translate-y-0.5 active:scale-95"
                 >
                   Dashboard
                 </button>
                 {onLogout && (
-                  <button onClick={onLogout} className={`hidden rounded-full px-3 py-2 text-xs font-medium transition-colors sm:block ${ghostBtn}`}>
+                  <button onClick={onLogout} className={`hidden rounded-full px-4 py-2 text-sm font-medium transition-colors sm:block ${ghostBtn}`}>
                     Sign out
                   </button>
                 )}
@@ -156,13 +156,13 @@ export const Navbar: React.FC<NavbarProps> = ({
               <>
                 <button
                   onClick={() => onOpenAuth('signin')}
-                  className={`hidden rounded-full px-3.5 py-2 text-xs font-medium transition-colors sm:block ${ghostBtn}`}
+                  className={`hidden rounded-full px-4 py-2 text-sm font-medium transition-colors sm:block ${ghostBtn}`}
                 >
                   Sign in
                 </button>
                 <button
                   onClick={() => onOpenAuth('signup')}
-                  className="rounded-full bg-gradient-to-b from-amber-300 to-amber-500 px-4 py-2 text-xs font-semibold text-[#1F1503] shadow-[0_6px_20px_-8px_rgba(245,192,66,0.7)] transition-transform hover:-translate-y-0.5 active:scale-95"
+                  className="rounded-full bg-gradient-to-b from-amber-300 to-amber-500 px-5 py-2.5 text-sm font-semibold text-[#1F1503] shadow-[0_6px_20px_-8px_rgba(245,192,66,0.7)] transition-transform hover:-translate-y-0.5 active:scale-95"
                 >
                   Sign up
                 </button>
@@ -189,7 +189,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 key={item.id}
                 onClick={() => onNavigatePage(item.id)}
                 aria-current={active ? 'page' : undefined}
-                className={`relative flex-1 rounded-xl px-1 py-2.5 text-[11px] font-medium transition-colors ${
+                className={`relative flex-1 rounded-xl px-1 py-2.5 text-xs sm:text-sm font-semibold transition-colors ${
                   active ? 'text-white' : 'text-white/65'
                 }`}
               >
