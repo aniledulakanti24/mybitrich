@@ -74,9 +74,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigatePage }) => {
           {/* Brand Column (2 Cols) */}
           <div className="lg:col-span-2 space-y-5">
             <a href="#" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl overflow-hidden bg-slate-50 border border-gold-300/50 flex items-center justify-center p-1.5 shadow-sm">
+              <div className="w-10 h-10 flex items-center justify-center">
                 <img
-                  src={`${import.meta.env.BASE_URL}assets/logo.png`}
+                  src={`${import.meta.env.BASE_URL}assets/logo-mark.png`}
                   alt="MyBitRich"
                   className="w-full h-full object-contain"
                 />

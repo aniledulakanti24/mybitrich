@@ -196,7 +196,7 @@ export const PriceTicker: React.FC<{ onClick: () => void }> = ({ onClick }) => {
   const color = up ? 'var(--d-up)' : 'var(--d-down)';
   return (
     <button onClick={onClick} title="Open the MBR chart" className="group hidden items-center gap-3 rounded-xl px-2.5 py-1.5 transition-colors hover:bg-surface-2 xl:flex">
-      <img src={`${import.meta.env.BASE_URL}assets/logo.png`} alt="" className="h-7 w-7 rounded-full bg-[#0b2155] object-contain p-0.5" />
+      <img src={`${import.meta.env.BASE_URL}assets/logo-mark.png`} alt="" className="h-7 w-7 rounded-full bg-[#0b2155] object-contain p-0.5" />
       <span className="text-left leading-tight">
         <span className="t-muted block text-[10px] font-semibold tracking-wide">MBR / USDT</span>
         <FlashValue value={stats.price} className="font-display text-sm font-bold">{fmtPrice(stats.price)}</FlashValue>

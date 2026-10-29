@@ -27,7 +27,7 @@ const RAIL_GROUPS = NAV_GROUPS.map((g) => ({ ...g, items: g.items.filter((i) => 
 
 const Logo: React.FC = () => (
   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white shadow-md">
-    <img src={`${import.meta.env.BASE_URL}assets/logo.png`} alt="" className="h-7 w-7 object-contain" />
+    <img src={`${import.meta.env.BASE_URL}assets/logo-mark.png`} alt="" className="h-7 w-7 object-contain" />
   </span>
 );
 

@@ -18,14 +18,14 @@ const sectionAnimation = {
 };
 
 const TOKEN_PARAMS = [
-  { label: 'Network', value: 'BNB Smart Chain', icon: Globe2, tone: 'bg-amber-50 text-amber-600' },
+  { label: 'Network', value: 'BNB Smart Chain (56)', icon: Globe2, tone: 'bg-amber-50 text-amber-600' },
   { label: 'Standard', value: TOKEN_INFO.standard, icon: FileText, tone: 'bg-blue-50 text-blue-700' },
-  { label: 'Token', value: `${TOKEN_INFO.symbol} (${TOKEN_INFO.symbol})`, icon: Coins, tone: 'bg-gold-50 text-gold-600' },
-  { label: 'Total supply', value: TOKEN_INFO.formattedSupply, icon: Layers, tone: 'bg-indigo-50 text-indigo-700' },
-  { label: 'Chain ID', value: String(TOKEN_INFO.chainId), icon: Hash, tone: 'bg-slate-100 text-slate-700' },
-  { label: 'Buy fee', value: '6%', icon: ArrowDownLeft, tone: 'bg-emerald-50 text-emerald-700' },
-  { label: 'Sell fee', value: '6%', icon: ArrowUpRight, tone: 'bg-rose-50 text-rose-600' },
-  { label: 'LP lock', value: `${TOKEN_INFO.liquidityLockedYears} years · until 2030–31`, icon: Lock, tone: 'bg-emerald-50 text-emerald-700' },
+  { label: 'Token', value: `${TOKEN_INFO.name} (${TOKEN_INFO.symbol})`, icon: Coins, tone: 'bg-gold-50 text-gold-600' },
+  { label: 'Hard cap', value: '150M MBR (D&S Release)', icon: Layers, tone: 'bg-indigo-50 text-indigo-700' },
+  { label: 'Launch type', value: 'Direct Fair Launch · Zero ICO', icon: ShieldCheck, tone: 'bg-emerald-50 text-emerald-700' },
+  { label: 'Buy fee', value: '6% (2% Reflection / 2% LP / 2% Mkt)', icon: ArrowDownLeft, tone: 'bg-emerald-50 text-emerald-700' },
+  { label: 'Sell fee', value: '6% (2% Reflection / 2% LP / 2% Mkt)', icon: ArrowUpRight, tone: 'bg-rose-50 text-rose-600' },
+  { label: 'Lock commitment', value: 'Rolling 5-Year Lock from purchase date', icon: Lock, tone: 'bg-amber-50 text-amber-700' },
 ];
 
 export const ContractsPage: React.FC<ContractsPageProps> = ({
@@ -215,6 +215,7 @@ export const ContractsPage: React.FC<ContractsPageProps> = ({
                     onClick={() => handleCopy(`param-${item.label}`, item.value)}
                     className="absolute right-3 top-3 rounded-md p-1 text-slate-300 opacity-0 transition-all hover:bg-slate-100 hover:text-slate-600 group-hover:opacity-100"
                     title={`Copy ${item.label}`}
+                    aria-label={`Copy ${item.label}`}
                   >
                     {copiedKey === `param-${item.label}` ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
                   </button>

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useInView, useMotionValue, useSpring, type Variants } from 'framer-motion';
+import { motion, useInView, useMotionValue, useReducedMotion, useSpring, type Variants } from 'framer-motion';
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -76,9 +76,11 @@ interface NumberTickerProps {
 export const NumberTicker: React.FC<NumberTickerProps> = ({ value, decimals = 0, prefix = '', suffix = '', className }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: '-40px' });
+  const reduceMotion = useReducedMotion();
   const mv = useMotionValue(0);
   const spring = useSpring(mv, { damping: 40, stiffness: 90 });
   const [display, setDisplay] = useState(0);
+  const fmt = (v: number) => `${prefix}${v.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}${suffix}`;
 
   useEffect(() => {
     if (inView) mv.set(value);
@@ -86,11 +88,11 @@ export const NumberTicker: React.FC<NumberTickerProps> = ({ value, decimals = 0,
 
   useEffect(() => spring.on('change', (v) => setDisplay(v)), [spring]);
 
+  // The real figure is always in the DOM (screen readers, crawlers, copy/paste); only the visual copy counts up.
   return (
     <span ref={ref} className={className}>
-      {prefix}
-      {display.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}
-      {suffix}
+      <span className="sr-only">{fmt(value)}</span>
+      <span aria-hidden="true">{fmt(reduceMotion ? value : display)}</span>
     </span>
   );
 };

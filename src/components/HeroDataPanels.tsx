@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { TrendingUp, Users } from 'lucide-react';
 import { TOKEN_INFO, REFERRAL_TIERS } from '../data/tokenData';
 import { NumberTicker } from './ui/motion-primitives';
+import { fmtChange, fmtCompact, fmtUsdPrice, useMarketData } from '../hooks/useMarketData';
 
 /**
  * Glass data cards that flank the hero globe on large screens,
@@ -10,20 +11,6 @@ import { NumberTicker } from './ui/motion-primitives';
  */
 
 const EASE = [0.16, 1, 0.3, 1] as const;
-
-// Illustrative 7-day trend for the sparkline (rises toward the current +18.4% day)
-const SPARK = [18, 22, 19, 26, 24, 31, 29, 35, 33, 41, 38, 47, 52, 49, 58, 63];
-const sparkPath = (() => {
-  const w = 200;
-  const h = 44;
-  const max = Math.max(...SPARK);
-  const min = Math.min(...SPARK);
-  return SPARK.map((v, i) => {
-    const x = (i / (SPARK.length - 1)) * w;
-    const y = h - ((v - min) / (max - min)) * (h - 4) - 2;
-    return `${i === 0 ? 'M' : 'L'}${x.toFixed(1)} ${y.toFixed(1)}`;
-  }).join(' ');
-})();
 
 const Card: React.FC<{
   children: React.ReactNode;
@@ -66,56 +53,46 @@ const Label: React.FC<{ icon: React.ElementType; children: React.ReactNode; tone
   </div>
 );
 
-const MarketCard: React.FC = () => (
-  <>
-    <div className="flex items-center justify-between">
-      <Label icon={TrendingUp} tone="text-emerald-400">MBR / USDT</Label>
-      <span className="flex items-center gap-1 rounded-full bg-emerald-400/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">
-        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" /> Live
-      </span>
-    </div>
-    <div className="mt-3 flex items-end justify-between">
-      <div className="font-display text-2xl font-bold text-white">{TOKEN_INFO.currentPrice}</div>
-      <div className="text-xs font-semibold text-emerald-400">+18.4% · 24h</div>
-    </div>
-    <svg viewBox="0 0 200 44" className="mt-2 h-11 w-full overflow-visible" preserveAspectRatio="none">
-      <defs>
-        <linearGradient id="spark-fill" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="#34D399" stopOpacity="0.35" />
-          <stop offset="100%" stopColor="#34D399" stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      <motion.path
-        d={`${sparkPath} L200 44 L0 44 Z`}
-        fill="url(#spark-fill)"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 0.8 }}
-      />
-      <motion.path
-        d={sparkPath}
-        fill="none"
-        stroke="#34D399"
-        strokeWidth={1.8}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ delay: 1, duration: 1.6, ease: 'easeInOut' }}
-      />
-    </svg>
-    <div className="mt-3 grid grid-cols-2 gap-2 border-t border-white/10 pt-3">
-      <div>
-        <div className="text-[10px] uppercase tracking-wider text-slate-500">Market cap</div>
-        <div className="text-sm font-semibold text-white">{TOKEN_INFO.marketCap}</div>
+/** Live when MBR has an indexed PancakeSwap pool; otherwise clearly labelled as the launch reference price. */
+const MarketCard: React.FC = () => {
+  const { mbr } = useMarketData();
+  const up = (mbr.change24h ?? 0) >= 0;
+  return (
+    <>
+      <div className="flex items-center justify-between">
+        <Label icon={TrendingUp} tone="text-emerald-400">MBR / USDT</Label>
+        {mbr.live ? (
+          <span className="flex items-center gap-1 rounded-full bg-emerald-400/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" /> Live
+          </span>
+        ) : (
+          <span className="rounded-full bg-amber-300/10 px-2 py-0.5 text-[10px] font-semibold text-amber-200" title="No PancakeSwap pool is indexed yet, so this is the launch reference price">Reference</span>
+        )}
       </div>
-      <div>
-        <div className="text-[10px] uppercase tracking-wider text-slate-500">24h volume</div>
-        <div className="text-sm font-semibold text-white">$840,000</div>
+      <div className="mt-3 flex items-end justify-between">
+        <div className="font-display text-2xl font-bold text-white">{fmtUsdPrice(mbr.priceUsd)}</div>
+        {mbr.change24h !== null ? (
+          <div className={`text-xs font-semibold ${up ? 'text-emerald-400' : 'text-rose-400'}`}>{fmtChange(mbr.change24h)} · 24h</div>
+        ) : (
+          <div className="text-[11px] text-slate-400">Launch price</div>
+        )}
       </div>
-    </div>
-  </>
-);
+      <div className="mt-3 grid grid-cols-2 gap-2 border-t border-white/10 pt-3">
+        <div>
+          <div className="text-[10px] uppercase tracking-wider text-slate-500">{mbr.live ? 'Market cap' : 'Cap at ref. price'}</div>
+          <div className="text-sm font-semibold text-white">{fmtCompact(mbr.marketCap)}</div>
+        </div>
+        <div>
+          <div className="text-[10px] uppercase tracking-wider text-slate-500">24h volume</div>
+          <div className="text-sm font-semibold text-white">{mbr.volume24h !== null ? fmtCompact(mbr.volume24h) : '—'}</div>
+        </div>
+      </div>
+      {mbr.live && mbr.pairUrl && (
+        <a href={mbr.pairUrl} target="_blank" rel="noopener noreferrer" className="mt-2 block text-[10px] text-slate-400 hover:text-white">Source: DexScreener ↗</a>
+      )}
+    </>
+  );
+};
 
 const HoldersCard: React.FC = () => (
   <>
@@ -156,8 +133,14 @@ export const HeroDataPanels: React.FC = () => (
 
 /** Compact grid shown under the globe on phones and tablets. */
 export const HeroDataGrid: React.FC = () => {
+  const { mbr } = useMarketData();
   const items = [
-    { label: 'Price', value: TOKEN_INFO.currentPrice, note: '+18.4% · 24h', tone: 'text-emerald-400' },
+    {
+      label: mbr.live ? 'Price · live' : 'Reference price',
+      value: fmtUsdPrice(mbr.priceUsd),
+      note: mbr.change24h !== null ? `${fmtChange(mbr.change24h)} · 24h` : 'Launch price',
+      tone: mbr.change24h === null ? 'text-slate-400' : mbr.change24h >= 0 ? 'text-emerald-400' : 'text-rose-400',
+    },
     { label: 'Holders', value: TOKEN_INFO.holders, note: '3-tier referrals', tone: 'text-sky-300' },
   ];
   return (

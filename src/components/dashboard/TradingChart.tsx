@@ -497,7 +497,7 @@ export const TradingChart: React.FC<{ height?: number }> = ({ height = 460 }) =>
       {/* Market header */}
       <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b px-4 py-3">
         <div className="flex items-center gap-2.5">
-          <img src={`${import.meta.env.BASE_URL}assets/logo.png`} alt="" className="h-7 w-7 rounded-full bg-[#1a1204] object-contain" />
+          <img src={`${import.meta.env.BASE_URL}assets/logo-mark.png`} alt="" className="h-7 w-7 rounded-full bg-[#1a1204] object-contain" />
           <div>
             <div className="flex items-center gap-2 font-display text-sm font-bold">
               {DASH.pair}

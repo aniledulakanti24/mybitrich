@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowUpRight, ArrowDownRight, Flame } from 'lucide-react';
+import { fmtChange, fmtCompact, fmtUsdPrice, useMarketData } from '../hooks/useMarketData';
 
 export const LiveTicker: React.FC = () => {
   // Fade out once the page scrolls so the ticker never slides under the floating navbar
@@ -11,16 +12,20 @@ export const LiveTicker: React.FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const tickerItems = [
-    { symbol: 'MBR / USDT', price: '$0.00248', change: '+18.4%', isPositive: true, isHero: true },
-    { symbol: 'BNB / USD', price: '$594.30', change: '+3.82%', isPositive: true },
-    { symbol: 'BTC / USD', price: '$68,920.00', change: '+2.14%', isPositive: true },
-    { symbol: 'ETH / USD', price: '$3,580.40', change: '+1.65%', isPositive: true },
-    { symbol: 'TON / USD', price: '$5.42', change: '+4.12%', isPositive: true },
-    { symbol: 'SOL / USD', price: '$181.25', change: '+4.80%', isPositive: true },
-    { symbol: 'DOGE / USD', price: '$0.145', change: '+0.95%', isPositive: true },
-    { symbol: 'MBR 24H VOL', price: '$840,000', change: '+42.5%', isPositive: true, isHero: true },
+  const { mbr, coins, coinsLive } = useMarketData();
+  const tickerItems: { symbol: string; price: string; change: string | null; isPositive: boolean; isHero?: boolean; tag?: string }[] = [
+    {
+      symbol: 'MBR / USDT',
+      price: fmtUsdPrice(mbr.priceUsd),
+      change: mbr.change24h !== null ? fmtChange(mbr.change24h) : null,
+      isPositive: (mbr.change24h ?? 0) >= 0,
+      isHero: true,
+      tag: mbr.live ? undefined : 'Reference',
+    },
+    ...coins.map((c) => ({ symbol: `${c.symbol} / USD`, price: fmtUsdPrice(c.priceUsd), change: fmtChange(c.change24h), isPositive: c.change24h >= 0 })),
+    ...(mbr.live && mbr.volume24h !== null ? [{ symbol: 'MBR 24H VOL', price: fmtCompact(mbr.volume24h), change: null, isPositive: true, isHero: true }] : []),
   ];
+
 
   return (
     // No bar background: frosted pills float over whatever section sits beneath
@@ -31,8 +36,8 @@ export const LiveTicker: React.FC = () => {
     >
       {/* Pinned market label */}
       <div className="glass-pill hidden shrink-0 items-center gap-2 rounded-full px-3 py-1.5 text-[10px] font-bold text-amber-300 sm:flex">
-        <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-        <span className="tracking-wider">DEX FEED</span>
+        <span className={`h-2 w-2 rounded-full ${coinsLive ? 'animate-pulse bg-emerald-400' : 'bg-slate-400'}`} />
+        <span className="tracking-wider">{coinsLive ? 'LIVE MARKETS' : 'MARKETS'}</span>
       </div>
 
       <div className="mask-fade-x min-w-0 flex-1 overflow-hidden py-1.5">
@@ -47,7 +52,8 @@ export const LiveTicker: React.FC = () => {
             {item.isHero && <Flame className="w-3.5 h-3.5 text-amber-300 fill-amber-400/40" />}
             <span className={item.isHero ? 'text-amber-200 font-bold' : 'text-white/85 font-semibold'}>{item.symbol}</span>
             <span className="text-white font-mono font-medium">{item.price}</span>
-            <span
+            {item.tag && <span className="rounded-full bg-amber-300/15 px-1.5 text-[9px] font-semibold uppercase tracking-wide text-amber-200">{item.tag}</span>}
+            {item.change !== null && <span
               className={`flex items-center text-[11px] font-semibold ${
                 item.isPositive ? 'text-emerald-400' : 'text-rose-400'
               }`}
@@ -58,7 +64,7 @@ export const LiveTicker: React.FC = () => {
               ) : (
                 <ArrowDownRight className="w-3 h-3 ml-0.5" />
               )}
-            </span>
+            </span>}
           </div>
         ))}
       </div>

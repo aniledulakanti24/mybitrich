@@ -130,7 +130,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ initialMode = 'signin', onNa
           Back to site
         </button>
         <div className="flex items-center gap-2.5">
-          <img src={`${import.meta.env.BASE_URL}assets/logo.png`} alt="" className="h-8 w-8 rounded-full bg-white object-contain p-1 shadow-sm ring-1 ring-gold-300/60" />
+          <img src={`${import.meta.env.BASE_URL}assets/logo-mark.png`} alt="" className="h-8 w-8 object-contain" />
           <span className="font-display text-base font-bold tracking-tight text-slate-900">
             My<span className="text-gradient-gold">BitRich</span>
           </span>
