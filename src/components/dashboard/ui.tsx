@@ -258,7 +258,7 @@ export const TokenIcon: React.FC<{ asset: 'USDT' | 'MBR'; size?: number }> = ({ 
       ₮
     </span>
   ) : (
-    <img src={`${import.meta.env.BASE_URL}assets/logo.png`} alt="" className="shrink-0 rounded-full bg-[#1a1204] object-contain" style={{ width: size, height: size }} />
+    <img src={`${import.meta.env.BASE_URL}assets/logo-mark.png`} alt="" className="shrink-0 rounded-full bg-[#1a1204] object-contain" style={{ width: size, height: size }} />
   );
 
 /** Section banner: title + copy + optional chips on the left, illustration on the right. */

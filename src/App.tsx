@@ -39,6 +39,21 @@ const MainAppContent: React.FC = () => {
 
   const lenisRef = useRef<Lenis | null>(null);
 
+  // Per-view browser tab titles (and what bookmarks/history show)
+  useEffect(() => {
+    const PAGE_TITLES: Record<PageType, string> = {
+      home: 'MyBitRich (MBR) — BNB Smart Chain token',
+      vision: 'Vision & Mission · MyBitRich',
+      tokenomics: 'Tokenomics · MyBitRich',
+      roadmap: 'Roadmap · MyBitRich',
+      calculator: 'ROI Calculator · MyBitRich',
+      contracts: 'Contracts · MyBitRich',
+    };
+    if (currentView === 'dashboard') return; // the dashboard titles itself per section
+    document.title =
+      currentView === 'auth' ? (authMode === 'signup' ? 'Create account · MyBitRich' : 'Sign in · MyBitRich') : PAGE_TITLES[currentPage];
+  }, [currentView, currentPage, authMode]);
+
   // Initialize Buttery-Smooth Inertial Momentum Scrolling (Lenis)
   useEffect(() => {
     const lenis = new Lenis({

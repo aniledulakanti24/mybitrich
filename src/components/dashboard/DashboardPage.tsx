@@ -98,6 +98,11 @@ const DashboardShell: React.FC<DashboardPageProps> = ({ onNavigateHome }) => {
     setNavOpen(false);
   }, [section]);
 
+  useEffect(() => {
+    const label = NAV.find((n) => n.id === section)?.label ?? 'Dashboard';
+    document.title = `${label} · MyBitRich Dashboard`;
+  }, [section]);
+
   const setPin = (v: boolean) => {
     setPinned(v);
     try {

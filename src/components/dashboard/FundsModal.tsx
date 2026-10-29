@@ -323,7 +323,7 @@ const DepositFlow: React.FC<{ asset: Asset; tabs: React.ReactNode; onClose: () =
             value={address}
             size={188}
             level="H"
-            imageSettings={{ src: `${import.meta.env.BASE_URL}assets/logo.png`, height: 36, width: 36, excavate: true }}
+            imageSettings={{ src: `${import.meta.env.BASE_URL}assets/logo-mark.png`, height: 36, width: 36, excavate: true }}
           />
         </div>
 

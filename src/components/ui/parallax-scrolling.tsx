@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Lenis from '@studio-freight/lenis';
+import Lenis from 'lenis';
 import { ShieldCheck, TrendingUp, Sparkles, Lock, Coins, ArrowRight, Globe } from 'lucide-react';
 import { TOKEN_INFO } from '../../data/tokenData';
 import { motion } from 'framer-motion';
@@ -155,6 +155,26 @@ export function ParallaxComponent({
             <motion.p {...heroRise(0.35)} className="text-xl sm:text-2xl lg:text-3xl font-semibold font-display text-white/90 mt-4 max-w-3xl mx-auto leading-tight">
               {subtitle}
             </motion.p>
+
+            {/* 4 Core Pillars Highlight Strip for Customers */}
+            <motion.div {...heroRise(0.48)} className="mt-6 flex flex-wrap items-center justify-center gap-2 max-w-4xl mx-auto pointer-events-auto">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.08] backdrop-blur-md border border-white/15 text-[11px] font-mono text-slate-200 shadow-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                Zero ICO · 100% Direct Fair Launch
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.08] backdrop-blur-md border border-white/15 text-[11px] font-mono text-slate-200 shadow-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
+                Tx-Driven Growth · 2% Reflection / Trade
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.08] backdrop-blur-md border border-white/15 text-[11px] font-mono text-slate-200 shadow-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
+                Rolling 5-Yr Lock From Purchase Date
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.08] backdrop-blur-md border border-white/15 text-[11px] font-mono text-slate-200 shadow-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-purple-400" />
+                150M Cap · Demand &amp; Supply Release
+              </span>
+            </motion.div>
 
             <motion.div {...heroRise(0.65)} className="mt-8 flex flex-wrap items-center justify-center gap-3 pointer-events-auto">
               <a

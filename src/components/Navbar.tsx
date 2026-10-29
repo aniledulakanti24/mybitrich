@@ -11,11 +11,11 @@ interface NavbarProps {
 }
 
 const NAV_ITEMS = [
-  { id: 'home', label: 'Home' },
-  { id: 'vision', label: 'Vision' },
-  { id: 'tokenomics', label: 'Tokenomics' },
-  { id: 'roadmap', label: 'Roadmap' },
-  { id: 'contracts', label: 'Contracts' },
+  { id: 'vision', label: 'Vision', shortLabel: 'Vision' },
+  { id: 'tokenomics', label: 'Tokenomics', shortLabel: 'Tokenomics' },
+  { id: 'roadmap', label: 'Roadmap', shortLabel: 'Roadmap' },
+  { id: 'calculator', label: 'ROI Calculator', shortLabel: 'ROI Calc' },
+  { id: 'contracts', label: 'Contracts', shortLabel: 'Contracts' },
 ];
 
 const NAV_PROBE_Y = 36; // vertical point (px) where the bar sits, used to read what is underneath
@@ -96,16 +96,14 @@ export const Navbar: React.FC<NavbarProps> = ({
         className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-4"
       >
         <div
-          className={`mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 rounded-2xl px-2 transition-[backdrop-filter] duration-300 sm:px-3 md:h-16 [&_button]:whitespace-nowrap ${
+          className={`mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 rounded-2xl px-2 transition-[backdrop-filter] duration-300 sm:px-3 md:h-16 [&_button]:whitespace-nowrap ${
             atTop ? '' : 'backdrop-blur-md'
           }`}
         >
           {/* Brand */}
           <button onClick={() => onNavigatePage('home')} className="group flex items-center gap-3 text-left" title="Home">
-            <div className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-gradient-to-br from-amber-200 via-amber-400 to-amber-700 p-[2px] shadow-sm transition-transform group-hover:scale-105">
-              <div className="flex h-full w-full items-center justify-center rounded-full bg-white p-0.5">
-                <img src={`${import.meta.env.BASE_URL}assets/logo.png`} alt="MyBitRich" className="h-full w-full object-contain" />
-              </div>
+            <div className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center transition-transform group-hover:scale-105">
+              <img src={`${import.meta.env.BASE_URL}assets/logo-mark.png`} alt="MyBitRich" className="h-full w-full object-contain" />
             </div>
             <span className={`font-display text-lg font-bold tracking-tight sm:text-xl md:text-2xl ${onDark ? 'text-white' : 'text-slate-900'}`}>
               My<span className={onDark ? 'text-gradient-gold-bright' : 'text-gradient-gold'}>BitRich</span>
@@ -113,7 +111,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
 
           {/* Links (tablet / desktop) */}
-          <nav className="hidden items-center gap-1.5 md:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-1 lg:gap-1.5 md:flex" aria-label="Primary">
             {NAV_ITEMS.map((item) => {
               const active = currentPage === item.id;
               return (
@@ -121,13 +119,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                   key={item.id}
                   onClick={() => onNavigatePage(item.id)}
                   aria-current={active ? 'page' : undefined}
-                  className={`relative px-4 py-2 text-base font-semibold transition-colors ${active ? activeText : text}`}
+                  className={`relative px-3 py-2 text-[15px] xl:px-4 xl:text-base font-semibold transition-colors ${active ? activeText : text}`}
                 >
                   {item.label}
                   {active && (
                     <motion.span
                       layoutId="nav-underline"
-                      className="absolute inset-x-4 -bottom-0.5 h-[2.5px] rounded-full bg-gradient-to-r from-amber-300 to-amber-500"
+                      className="absolute inset-x-3 xl:inset-x-4 -bottom-0.5 h-[2.5px] rounded-full bg-gradient-to-r from-amber-300 to-amber-500"
                       transition={{ type: 'spring', stiffness: 420, damping: 34 }}
                     />
                   )}
@@ -178,10 +176,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         initial={false}
         animate={{ y: hidden ? '140%' : '0%' }}
         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed inset-x-0 bottom-3 z-50 flex justify-center px-3 md:hidden"
+        className="fixed inset-x-0 bottom-3 z-50 flex justify-center px-2 md:hidden"
         style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
       >
-        <div className="flex w-full max-w-md items-center justify-between rounded-2xl border border-white/15 bg-slate-900/40 px-1 py-1 backdrop-blur-md">
+        <div className="flex w-full max-w-lg items-center justify-between rounded-2xl border border-white/15 bg-slate-900/40 px-1 py-1 backdrop-blur-md">
           {NAV_ITEMS.map((item) => {
             const active = currentPage === item.id;
             return (
@@ -189,18 +187,18 @@ export const Navbar: React.FC<NavbarProps> = ({
                 key={item.id}
                 onClick={() => onNavigatePage(item.id)}
                 aria-current={active ? 'page' : undefined}
-                className={`relative flex-1 rounded-xl px-1 py-2.5 text-xs sm:text-sm font-semibold transition-colors ${
+                className={`relative flex-1 rounded-xl px-1 py-2 text-[11px] sm:text-xs font-semibold transition-colors ${
                   active ? 'text-white' : 'text-white/65'
                 }`}
               >
                 {active && (
                   <motion.span
                     layoutId="nav-underline-mobile"
-                    className="absolute inset-x-3 bottom-1 h-[2px] rounded-full bg-gradient-to-r from-amber-300 to-amber-500"
+                    className="absolute inset-x-2 bottom-1 h-[2px] rounded-full bg-gradient-to-r from-amber-300 to-amber-500"
                     transition={{ type: 'spring', stiffness: 420, damping: 34 }}
                   />
                 )}
-                {item.label}
+                <span className="truncate block">{item.shortLabel || item.label}</span>
               </button>
             );
           })}
